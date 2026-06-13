@@ -1,110 +1,99 @@
-import { createFileRoute } from "@tanstack/react-router";
-import heroImage from "@/assets/hero-dashboard.jpg";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Nexus — Build the Impossible" },
-      { name: "description", content: "Next-generation infrastructure for high-performance creative teams. Scalable, secure, and blazingly fast." },
-      { property: "og:title", content: "Nexus — Build the Impossible" },
-      { property: "og:description", content: "Next-generation infrastructure for high-performance creative teams." },
-      { property: "og:image", content: heroImage },
-      { name: "twitter:image", content: heroImage },
+      { title: "Treasure — Snap. Value. List." },
+      { name: "description", content: "A bold, colorful resale companion. Snap a photo of vintage clothing, jewelry, or decor and get an instant resale valuation." },
     ],
   }),
   component: Landing,
 });
 
 function Landing() {
+  const navigate = useNavigate();
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) navigate({ to: "/app" });
+      else setChecking(false);
+    });
+  }, [navigate]);
+
+  if (checking) {
+    return (
+      <div className="grid min-h-screen place-items-center">
+        <div className="font-mono text-sm uppercase tracking-widest text-muted-foreground">Loading…</div>
+      </div>
+    );
+  }
+
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background text-foreground selection:bg-brand selection:text-brand-foreground">
-      {/* Ambient gradient orbs */}
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Floating shapes */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-40 -left-40 size-[600px] rounded-full bg-brand/20 blur-[140px] animate-orb" />
-        <div className="absolute top-1/3 -right-40 size-[520px] rounded-full bg-[oklch(0.55_0.22_280)]/30 blur-[160px] animate-orb [animation-delay:-4s]" />
-        <div className="absolute bottom-0 left-1/3 size-[480px] rounded-full bg-[oklch(0.65_0.2_200)]/20 blur-[150px] animate-orb [animation-delay:-8s]" />
+        <div className="absolute left-[8%] top-[18%] size-24 rotate-12 rounded-3xl neo-border neo-shadow bg-sun animate-wiggle" />
+        <div className="absolute right-[10%] top-[24%] size-32 -rotate-6 rounded-full neo-border neo-shadow bg-hot animate-wiggle [animation-delay:-1s]" />
+        <div className="absolute left-[14%] bottom-[14%] size-28 rotate-[20deg] neo-border neo-shadow bg-electric animate-wiggle [animation-delay:-2s]" style={{ borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%" }} />
+        <div className="absolute right-[16%] bottom-[18%] size-20 -rotate-12 neo-border neo-shadow bg-lime animate-wiggle [animation-delay:-1.5s]" style={{ borderRadius: "40% 60% 70% 30% / 50% 60% 40% 50%" }} />
       </div>
 
-      {/* Navigation */}
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-8">
-        <div className="flex items-center gap-2.5">
-          <div className="flex size-8 items-center justify-center rounded-full bg-brand">
-            <div className="size-3 rotate-45 rounded-[2px] bg-brand-foreground" />
-          </div>
-          <span className="text-xl font-extrabold tracking-tighter">NEXUS</span>
+      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+        <div className="flex items-center gap-2">
+          <div className="grid size-10 place-items-center rounded-2xl neo-border neo-shadow-sm bg-hot text-2xl">💎</div>
+          <span className="font-display text-xl tracking-tight">TREASURE</span>
         </div>
-        <div className="hidden items-center gap-10 text-sm font-medium text-foreground/60 md:flex">
-          <a href="#platform" className="transition-colors hover:text-brand">Platform</a>
-          <a href="#solutions" className="transition-colors hover:text-brand">Solutions</a>
-          <a href="#company" className="transition-colors hover:text-brand">Company</a>
-        </div>
-        <button className="rounded-full glass-panel px-6 py-2.5 text-sm font-bold text-foreground transition-all hover:bg-brand hover:text-brand-foreground active:scale-95">
-          Get Started
-        </button>
-      </nav>
+        <Link to="/auth" className="neo-press rounded-full neo-border neo-shadow-sm bg-card px-5 py-2.5 text-sm font-bold uppercase tracking-wider">
+          Sign in
+        </Link>
+      </header>
 
-      {/* Hero */}
-      <main className="mx-auto max-w-7xl px-6 pt-20 pb-32">
-        <div className="max-w-4xl">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full glass-panel px-3 py-1 text-xs font-semibold tracking-wide text-brand animate-fade-up">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-75" />
-              <span className="relative inline-flex size-2 rounded-full bg-brand" />
-            </span>
-            VERSION 4.0 IS LIVE
-          </div>
-
-          <h1 className="mb-10 text-7xl font-extrabold leading-[0.9] tracking-tighter animate-fade-up [animation-delay:120ms] md:text-[110px]">
-            BUILD THE <br />
-            <span className="text-brand">IMPOSSIBLE.</span>
-          </h1>
-
-          <p className="mb-12 max-w-2xl text-xl leading-relaxed text-foreground/55 animate-fade-up [animation-delay:240ms] md:text-2xl">
-            The next generation infrastructure for high-performance creative teams.
-            Scalable, secure, and blazingly fast.
-          </p>
-
-          <div className="flex flex-col gap-4 animate-fade-up [animation-delay:360ms] sm:flex-row">
-            <button className="rounded-2xl bg-brand px-10 py-5 text-lg font-extrabold text-brand-foreground transition-all hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-12px_color-mix(in_oklab,var(--brand)_50%,transparent)] active:scale-95">
-              Start Building Free
-            </button>
-            <button className="rounded-2xl glass-panel px-10 py-5 text-lg font-bold text-foreground transition-all hover:bg-white/10">
-              Book a Demo
-            </button>
-          </div>
+      <main className="mx-auto max-w-6xl px-6 pt-12 pb-24 text-center">
+        <div className="mx-auto inline-flex animate-pop items-center gap-2 rounded-full neo-border neo-shadow-sm bg-card px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em]">
+          <span className="size-2 rounded-full bg-hot" /> For resellers who hustle
         </div>
 
-        {/* Hero visual */}
-        <div className="relative mt-32 animate-fade-up [animation-delay:480ms]">
-          <div className="overflow-hidden rounded-[32px] glass-panel shadow-2xl ring-1 ring-white/5">
-            <img
-              src={heroImage}
-              alt="Nexus dashboard interface preview"
-              className="aspect-[16/9] w-full object-cover"
-              loading="eager"
-            />
-          </div>
+        <h1 className="mx-auto mt-8 max-w-4xl font-display text-6xl leading-[0.9] tracking-tight sm:text-7xl md:text-[112px]">
+          <span className="inline-block animate-pop [animation-delay:60ms]">SNAP.</span>{" "}
+          <span className="inline-block animate-pop bg-hot px-3 text-white [animation-delay:140ms]">VALUE.</span>{" "}
+          <span className="inline-block animate-pop [animation-delay:220ms]">LIST.</span>
+        </h1>
+
+        <p className="mx-auto mt-8 max-w-2xl text-lg text-muted-foreground sm:text-xl">
+          Point your camera at any vintage piece, jewel, or weird beautiful object.
+          Our AI tells you what it is and what it's worth — then files it away in a
+          loud, joyful inventory you'll actually love opening.
+        </p>
+
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <Link to="/auth" className="neo-press rounded-full neo-border neo-shadow bg-hot px-8 py-4 font-display text-lg uppercase tracking-wide text-white">
+            Start valuing →
+          </Link>
+          <a href="#how" className="neo-press rounded-full neo-border neo-shadow-sm bg-sun px-8 py-4 font-display text-lg uppercase tracking-wide">
+            How it works
+          </a>
         </div>
+
+        <section id="how" className="mt-28 grid gap-6 text-left md:grid-cols-3">
+          {[
+            { emoji: "📸", color: "bg-sun", title: "Snap it", body: "Upload a photo from your phone or desktop. Add a quick note if it helps." },
+            { emoji: "🤖", color: "bg-electric text-white", title: "AI values it", body: "Identifies the piece, era, and brand cues. Returns a realistic resale range." },
+            { emoji: "🗂️", color: "bg-lime", title: "File it", body: "Saved into your inventory with custom categories. Track sourcing → listed → sold." },
+          ].map((s, i) => (
+            <div key={s.title} className={`neo-tile p-7 animate-pop ${s.color}`} style={{ animationDelay: `${300 + i * 80}ms` }}>
+              <div className="text-5xl">{s.emoji}</div>
+              <h3 className="mt-4 font-display text-2xl uppercase tracking-tight">{s.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed">{s.body}</p>
+            </div>
+          ))}
+        </section>
       </main>
 
-      {/* Minimal footer */}
-      <footer className="border-t border-border px-6 py-10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 md:flex-row">
-          <div className="flex items-center gap-2 opacity-50">
-            <div className="flex size-6 items-center justify-center rounded-full bg-foreground/20">
-              <div className="size-2 rotate-45 rounded-[2px] bg-foreground" />
-            </div>
-            <span className="text-lg font-extrabold tracking-tighter">NEXUS</span>
-          </div>
-          <p className="text-xs font-medium uppercase tracking-widest text-foreground/30">
-            © 2026 Nexus Systems Inc. All Rights Reserved.
-          </p>
-          <div className="flex gap-6 text-sm text-foreground/40">
-            <a href="#" className="hover:text-foreground">Twitter</a>
-            <a href="#" className="hover:text-foreground">GitHub</a>
-            <a href="#" className="hover:text-foreground">Discord</a>
-          </div>
-        </div>
+      <footer className="mx-auto max-w-6xl px-6 pb-10 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+        Made loud for resellers · © 2026 Treasure
       </footer>
     </div>
   );
