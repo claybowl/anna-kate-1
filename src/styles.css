@@ -36,6 +36,10 @@
   --color-lime: var(--lime);
   --color-tangerine: var(--tangerine);
   --color-grape: var(--grape);
+  --color-avocado: var(--avocado);
+  --color-copper: var(--copper);
+  --color-cream: var(--cream);
+  --color-sienna: var(--sienna);
   --font-display: "Archivo Black", system-ui, sans-serif;
   --font-sans: "Space Grotesk", system-ui, sans-serif;
   --font-mono: "Space Mono", ui-monospace, monospace;
@@ -43,31 +47,38 @@
 
 :root {
   --radius: 1.25rem;
-  --background: oklch(0.97 0.025 85);
-  --foreground: oklch(0.13 0.02 280);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.13 0.02 280);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.13 0.02 280);
-  --primary: oklch(0.13 0.02 280);
-  --primary-foreground: oklch(0.97 0.025 85);
-  --secondary: oklch(0.93 0.03 80);
-  --secondary-foreground: oklch(0.13 0.02 280);
-  --muted: oklch(0.93 0.03 80);
-  --muted-foreground: oklch(0.45 0.02 280);
-  --accent: oklch(0.66 0.27 0);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.6 0.25 25);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.13 0.02 280);
-  --input: oklch(0.13 0.02 280);
-  --ring: oklch(0.66 0.27 0);
-  --hot: oklch(0.66 0.27 0);
-  --sun: oklch(0.9 0.18 95);
-  --electric: oklch(0.6 0.24 255);
-  --lime: oklch(0.85 0.21 145);
-  --tangerine: oklch(0.74 0.21 50);
-  --grape: oklch(0.5 0.24 305);
+  /* warm cream paper — like a vintage shop receipt */
+  --background: oklch(0.96 0.02 75);
+  /* warm walnut brown — soft but readable */
+  --foreground: oklch(0.25 0.04 55);
+  --card: oklch(0.98 0.015 75);
+  --card-foreground: oklch(0.20 0.03 55);
+  --popover: oklch(0.98 0.015 75);
+  --popover-foreground: oklch(0.20 0.03 55);
+  --primary: oklch(0.20 0.03 55);
+  --primary-foreground: oklch(0.96 0.02 75);
+  --secondary: oklch(0.90 0.04 75);
+  --secondary-foreground: oklch(0.20 0.03 55);
+  --muted: oklch(0.90 0.04 75);
+  --muted-foreground: oklch(0.50 0.03 55);
+  --accent: oklch(0.55 0.15 40);
+  --accent-foreground: oklch(0.98 0.015 75);
+  --destructive: oklch(0.55 0.18 20);
+  --destructive-foreground: oklch(0.98 0.015 75);
+  --border: oklch(0.30 0.04 55);
+  --input: oklch(0.30 0.04 55);
+  --ring: oklch(0.55 0.15 40);
+  /* 70s palette — floral couch vibes */
+  --hot: oklch(0.55 0.15 40);        /* burnt orange */
+  --sun: oklch(0.78 0.14 85);        /* mustard yellow */
+  --electric: oklch(0.35 0.08 155);   /* hunter green */
+  --lime: oklch(0.72 0.12 135);      /* sage green */
+  --tangerine: oklch(0.50 0.12 25);  /* rust / terracotta */
+  --grape: oklch(0.38 0.06 55);      /* walnut brown */
+  --avocado: oklch(0.55 0.10 120);   /* avocado green */
+  --copper: oklch(0.52 0.10 35);     /* copper / bronze */
+  --cream: oklch(0.94 0.02 80);      /* warm cream */
+  --sienna: oklch(0.45 0.14 30);     /* burnt sienna */
 }
 
 .dark {
@@ -76,7 +87,7 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
+  * { border-color: color-mix(in oklab, var(--foreground) 50%, transparent); }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -92,29 +103,39 @@
 }
 
 @utility neo-border {
-  border-width: 3px;
-  border-color: var(--foreground);
+  border-width: 1.5px;
+  border-color: color-mix(in oklab, var(--foreground) 60%, transparent);
+  border-radius: 16px;
 }
 @utility neo-shadow {
-  box-shadow: 6px 6px 0 0 var(--foreground);
+  box-shadow: 3px 3px 0 0 color-mix(in oklab, var(--foreground) 70%, transparent),
+              0 0 12px 0 color-mix(in oklab, var(--foreground) 15%, transparent);
+  border-radius: 16px;
 }
 @utility neo-shadow-sm {
-  box-shadow: 4px 4px 0 0 var(--foreground);
+  box-shadow: 2px 2px 0 0 color-mix(in oklab, var(--foreground) 70%, transparent),
+              0 0 8px 0 color-mix(in oklab, var(--foreground) 10%, transparent);
+  border-radius: 16px;
 }
 @utility neo-shadow-lg {
-  box-shadow: 10px 10px 0 0 var(--foreground);
+  box-shadow: 5px 5px 0 0 color-mix(in oklab, var(--foreground) 70%, transparent),
+              0 0 18px 0 color-mix(in oklab, var(--foreground) 20%, transparent);
+  border-radius: 16px;
 }
 @utility neo-tile {
-  border-width: 3px;
-  border-color: var(--foreground);
-  box-shadow: 6px 6px 0 0 var(--foreground);
+  border-width: 1.5px;
+  border-color: color-mix(in oklab, var(--foreground) 60%, transparent);
+  box-shadow: 3px 3px 0 0 color-mix(in oklab, var(--foreground) 70%, transparent),
+              0 0 12px 0 color-mix(in oklab, var(--foreground) 15%, transparent);
   background: var(--card);
-  border-radius: var(--radius);
+  border-radius: 20px;
+  filter: url(#groovy-wave);
 }
 @utility neo-press {
   transition: transform 120ms ease, box-shadow 120ms ease;
-  &:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 0 var(--foreground); }
-  &:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 0 var(--foreground); }
+  border-radius: 16px;
+  &:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 0 color-mix(in oklab, var(--foreground) 70%, transparent), 0 0 14px 0 color-mix(in oklab, var(--foreground) 18%, transparent); }
+  &:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 0 color-mix(in oklab, var(--foreground) 70%, transparent), 0 0 6px 0 color-mix(in oklab, var(--foreground) 10%, transparent); }
 }
 
 @keyframes pop-in {
@@ -130,4 +151,5 @@
 }
 @utility animate-wiggle {
   animation: wiggle 2.4s ease-in-out infinite;
+  filter: url(#groovy-wave-strong);
 }

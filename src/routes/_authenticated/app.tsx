@@ -37,7 +37,7 @@ type Item = {
   created_at: string;
 };
 
-const SHAPE_COLORS = ["#FF3EA5", "#FFD60A", "#3D7CFF", "#00D9A3", "#FF8A3D", "#A06BFF"];
+const SHAPE_COLORS = ["#CC5500", "#E1B200", "#355E3B", "#8A9A5B", "#A0522D", "#6B4226", "#7B8C3A", "#B87333", "#A0522D", "#5C4033"];
 const EMOJIS = ["✨", "👕", "💎", "🪞", "👜", "🕯️", "📿", "🧥", "🎩", "🌸", "🛍️", "🎨"];
 
 function Dashboard() {

@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { FloralCorner } from "@/components/floral-corner";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -54,11 +55,17 @@ function AuthPage() {
 
   return (
     <div className="relative grid min-h-screen place-items-center px-4 py-12">
+      <FloralCorner position="top-left" />
+      <FloralCorner position="top-right" />
+      <FloralCorner position="bottom-left" />
+      <FloralCorner position="bottom-right" />
+
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-[6%] top-[12%] size-28 rotate-12 rounded-3xl neo-border neo-shadow bg-sun animate-wiggle" />
         <div className="absolute right-[10%] top-[18%] size-24 -rotate-6 rounded-full neo-border neo-shadow bg-hot animate-wiggle [animation-delay:-1s]" />
         <div className="absolute right-[14%] bottom-[12%] size-20 rotate-[20deg] neo-border neo-shadow bg-electric animate-wiggle [animation-delay:-2s]" />
-        <div className="absolute left-[12%] bottom-[20%] size-24 -rotate-12 rounded-2xl neo-border neo-shadow bg-lime animate-wiggle [animation-delay:-1.5s]" />
+        <div className="absolute left-[12%] bottom-[20%] size-24 -rotate-12 rounded-2xl neo-border neo-shadow bg-avocado animate-wiggle [animation-delay:-1.5s]" />
+        <div className="absolute left-[50%] top-[5%] size-14 rotate-45 neo-border neo-shadow bg-sienna animate-wiggle [animation-delay:-0.5s]" />
       </div>
 
       <div className="w-full max-w-md">

@@ -102,6 +102,19 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        {/* Groovy wave SVG filter — available to any element via filter: url(#groovy-wave) */}
+        <svg className="absolute h-0 w-0" aria-hidden>
+          <defs>
+            <filter id="groovy-wave">
+              <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="turbulence" seed="3" />
+              <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="5" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+            <filter id="groovy-wave-strong">
+              <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" result="turbulence" seed="5" />
+              <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="8" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+          </defs>
+        </svg>
         {children}
         <Scripts />
       </body>
